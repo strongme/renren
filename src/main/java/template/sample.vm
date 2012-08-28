@@ -1,0 +1,6 @@
+
+
+Content in the List is :<br>
+#foreach($s in $list)
+	<b>$s is great !</b><br>
+#end

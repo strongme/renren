@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="./scripts/Box2dWeb-2.1.a.3.js"></script>
+<script type="text/javascript" src="./scripts/lufylegend-1.4.1.js"></script>
+</head>
+<body>
+				<div id="mylegend">loading……</div>
+				<script type="text/javascript">
+					init(1, "mylegend", 800, 400, main);
+					var backLayer, cLayer, wallLayer, bitmap, loadingLayer;
+					var imgList = {};
+					var imgData = new Array({
+						name : "red_bird",
+						path : "./img/red_bird.png"
+					}, {
+						name : "yellow_bird",
+						path : "./img/yellow_bird.png"
+					}, {
+						name : "stick",
+						path : "./img/stick.png"
+					});
+					function main() {
+						LGlobal.setDebug(true);
+						trace("游戏开始……");
+						backLayer = new LSprite();
+						addChild(backLayer);
+
+						loadingLayer = new LoadingSample3();
+						backLayer.addChild(loadingLayer);
+						LLoadManage.load(imgData, function(progress) {
+							loadingLayer.setProgress(progress);
+						}, function(result) {
+							imgList = result;
+							backLayer.removeChild(loadingLayer);
+							loadingLayer = null;
+							gameInit();
+						});
+					}
+
+					function gameInit(event) {
+						LGlobal.box2d = new LBox2d();
+						LGlobal.box2d.setEvent(LEvent.BEGIN_CONTACT,beginContact);
+						wallLayer = new LSprite();
+						wallLayer.graphics.drawRect(10, "#000000", [ 0, 0, 800,
+								400 ], true, "#cccc80");
+						wallLayer.alpha = 0.3;
+						backLayer.addChild(wallLayer);
+
+						//上
+						wallLayer = new LSprite();
+						wallLayer.x = 400;
+						wallLayer.y = 0;
+						backLayer.addChild(wallLayer);
+						wallLayer.addBodyPolygon(800, 10, 0);
+						//左
+						wallLayer = new LSprite();
+						wallLayer.x = 0;
+						wallLayer.y = 200;
+						backLayer.addChild(wallLayer);
+						wallLayer.addBodyPolygon(50, 400, 0);
+						//下
+						wallLayer = new LSprite();
+						wallLayer.x = 400;
+						wallLayer.y = 400;
+						backLayer.addChild(wallLayer);
+						wallLayer.addBodyPolygon(800, 50, 0);
+						//右
+						wallLayer = new LSprite();
+						wallLayer.x = 800;
+						wallLayer.y = 200;
+						backLayer.addChild(wallLayer);
+						wallLayer.addBodyPolygon(50, 400, 0);
+						//backLayer.addEventListener(LMouseEvent.MOUSE_UP,add);
+
+						//var cLayer1 = add();
+						//var cLayer2 = add();
+						//var distanceJointDef = new LGlobal.box2d.b2DistanceJointDef(); 
+						//distanceJointDef.Initialize(cLayer1.box2dBody,cLayer2.box2dBody,cLayer1.box2dBody.GetWorldCenter(),cLayer2.box2dBody.GetWorldCenter());
+						//LGlobal.box2d.world.CreateJoint(distanceJointDef);
+						var cLayer3 = add();
+						var cLayer4 = add();
+						var cLayer5 = add();
+						var cLayer6 = add();
+						var cLayer7 = add();
+						var cLayer8 = add();
+						LGlobal.box2d.setDistanceJoint(cLayer3.box2dBody, cLayer4.box2dBody); 
+						LGlobal.box2d.setRevoluteJoint(cLayer6.box2dBody, cLayer5.box2dBody); 
+						LGlobal.box2d.setPulleyJoint(cLayer7.box2dBody, bird8.box2dBody,[0,50,300],[0,100,300],1.0);
+						
+					}
+
+					function beginContact(contact) {
+						trace("撞墙啊");
+					}
+
+					function add() {
+						var rand = Math.random();
+						if (rand < 1) {
+							cLayer = new LSprite();
+							cLayer.x = 50 + Math.random() * 700;
+							cLayer.y = 50;
+							backLayer.addChild(cLayer);
+							bitmap = new LBitmap(new LBitmapData(
+									imgList["red_bird"]));
+							cLayer.addChild(bitmap);
+							cLayer.addBodyCircle(bitmap.getWidth() * 0.5,
+									bitmap.getHeight() * 0.5,
+									bitmap.getWidth() * 0.5, 1, 1, 0.1, .6);
+							cLayer.setBodyMouseJoint(true);
+							return cLayer;
+						} else if (rand < 0.66) {
+							cLayer = new LSprite();
+							backLayer.addChild(cLayer);
+							bitmap = new LBitmap(new LBitmapData(
+									imgList["yellow_bird"]));
+							cLayer.addChild(bitmap);
+							var shapeArray = [ [ [ 0, 54 ], [ 27, 0 ],
+									[ 54, 54 ] ] ];
+							cLayer.addBodyVertices(shapeArray, 27, 27, 1, .5,
+									.4, .2);
+							cLayer.box2dBody
+									.SetPosition(new LGlobal.box2d.b2Vec2(
+											(50 + Math.random() * 700)
+													/ LGlobal.box2d.drawScale,
+											50 / LGlobal.box2d.drawScale));
+							cLayer.setBodyMouseJoint(true);
+							return cLayer;
+						} else {
+							cLayer = new LSprite();
+							cLayer.x = 50 + Math.random() * 700;
+							cLayer.y = 50;
+							backLayer.addChild(cLayer);
+							bitmap = new LBitmap(new LBitmapData(
+									imgList["stick"]));
+							cLayer.addChild(bitmap);
+							cLayer.addBodyPolygon(bitmap.getWidth(), bitmap
+									.getHeight(), 1, .5, .4, 0);
+							return cLayer;
+						}
+
+					}
+				</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+				<constant name="struts.devMode" value="true" />
+				<constant name="struts.i18n.encoding" value="utf-8" />
+				<constant name="struts.action.extension" value="action" />
+				<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+				<constant name="struts.configuration.xml.reload" value="true" />
+				<constant name="struts.multipart.maxSize" value="100000000"></constant>
+<!-- 				<constant name="struts.objectFactory.spring.autoWire"
+								value="name"></constant> -->
+
+				<package name="renren" extends="struts-default" namespace="/renren">
+
+								<action name="welcomeAc" class="org.scbit.lsbi.renren.action.WelcomeAction">
+												<result name="success">/page/renren/welcome.jsp</result>
+								</action>
+								
+								<action name="getPhotoes" class="org.scbit.lsbi.renren.action.GetPhotoAction"/>
+								
+								<action name="toVelocity" class="org.scbit.lsbi.renren.action.VelocityTestAction">
+												<result name="success" type="velocity">/page/velocity/hello.vm</result>
+								</action>
+								
+								<action name="getLocation" class="org.scbit.lsbi.renren.action.PlaceAction" method="data"></action>
+								
+								<action name="initLocation" class="org.scbit.lsbi.renren.action.PlacesAction" method="initData"></action>
+
+				</package>
+
+				<package name="weather" extends="struts-default" namespace="/weather">
+
+								<action name="getWeatherData" class="org.scbit.lsbi.renren.action.WeatherAction"  method="data"/>
+								
+				</package>
+				
+				<package name="work" extends="struts-default" namespace="/work">
+					<action name="workAction" class="org.scbit.lsbi.renren.action.WorkAction">
+						<param name="savePath">/upload</param>  
+			            <param name="allowTypes">text/plain,text/xml,text/html,image/gif,image/png,image/jpeg,image/jpg,image/bmp</param>  
+						<result name="input">/page/work/index.jsp</result>
+						<result name="success">/page/work/success.jsp</result>
+						<interceptor-ref name="fileUpload">
+							<param name="maximumSize">10000000</param>
+						</interceptor-ref>
+						<interceptor-ref name="defaultStack"></interceptor-ref>
+					</action>
+				</package>
+</struts>

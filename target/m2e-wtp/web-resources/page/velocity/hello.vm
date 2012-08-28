@@ -1,0 +1,10 @@
+##hello of velocity
+##foreach($header in $request.HeaderNames)
+##	<b>$header:</b>$request.getHeader($header)
+#set($name="Walter")
+Hello $name
+Second Name : $request.getAttribute("name")<br>
+HeaderNames: 
+#foreach($e in $request.getHeaderNames())
+$e<br>
+#end

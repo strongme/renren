@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-8-5 12:13:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.scbit.lsbi.renren.pojo.TbCity" table="tb_city" catalog="weather">
+        <id name="id" type="string">
+            <column name="id" length="7" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tbProvince" class="org.scbit.lsbi.renren.pojo.TbProvince" fetch="select">
+            <column name="province_id" length="7" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="30" />
+        </property>
+        <set name="tbCounties" table="tb_county" inverse="true" lazy="false" fetch="select" cascade="save-update">
+            <key>
+                <column name="city_id" length="7" />
+            </key>
+            <one-to-many class="org.scbit.lsbi.renren.pojo.TbCounty" />
+        </set>
+    </class>
+</hibernate-mapping>

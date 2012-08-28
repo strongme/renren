@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-7-25 20:47:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.scbit.lsbi.renren.pojo.TbWeather" table="tb_weather" catalog="weather">
+        <composite-id name="id" class="org.scbit.lsbi.renren.pojo.TbWeatherId">
+            <key-property name="woe" type="string">
+                <column name="woe" length="20" />
+            </key-property>
+            <key-property name="date" type="string">
+                <column name="date" length="20" />
+            </key-property>
+        </composite-id>
+        <property name="cityName" type="string">
+            <column name="city_name" length="11" />
+        </property>
+        <property name="cityCountry" type="string">
+            <column name="city_country" length="20" />
+        </property>
+        <property name="tmpLow" type="string">
+            <column name="tmp_low" length="20" />
+        </property>
+        <property name="tmpHigh" type="string">
+            <column name="tmp_high" length="20" />
+        </property>
+        <property name="windSpeed" type="string">
+            <column name="wind_speed" length="20" />
+        </property>
+        <property name="humidity" type="string">
+            <column name="humidity" length="20" />
+        </property>
+        <property name="visiblity" type="string">
+            <column name="visiblity" length="20" />
+        </property>
+        <property name="pressure" type="string">
+            <column name="pressure" length="20" />
+        </property>
+        <property name="sunrise" type="string">
+            <column name="sunrise" length="20" />
+        </property>
+        <property name="latitude" type="string">
+            <column name="latitude" length="20" />
+        </property>
+        <property name="longitude" type="string">
+            <column name="longitude" length="20" />
+        </property>
+        <property name="imgUrl" type="string">
+            <column name="img_url" length="1000" />
+        </property>
+    </class>
+</hibernate-mapping>
